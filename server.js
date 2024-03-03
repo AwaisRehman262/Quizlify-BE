@@ -9,14 +9,13 @@ import examRoutes from "./routes/examRoutes.js";
 import cors from "cors";
 // import testRoutes from './routes/testRoutes.js';
 import connectDB from "./db/config.js";
-connectDB();
 
 dotenv.config();
 
 const app = express();
 
 let corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://quizlify-seven.vercel.app",
   methods: "GET,POST,PUT,DELETE,",
   credentials: true,
 };
@@ -37,6 +36,8 @@ app.use("/api/v1/exam", examRoutes);
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () =>
-  console.log("Server is Running on", `http://localhost:${PORT}`)
+connectDB().then(() =>
+  app.listen(PORT, () =>
+    console.log("Server is Running on", `http://localhost:${PORT}`)
+  )
 );
